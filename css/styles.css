@@ -1,4 +1,31 @@
+:root {
+  /* Paleta de Colores Definida */
+  --color-parsley: #16542d;
+  --color-gray-nurse: #dfe7de;
+  --color-ironstone: #7e4a3b;
+  --color-turmeric: #bfbf43;
+
+  /* Colores Base Derivados */
+  --primary-brand-color: var(--color-parsley); /* Verde oscuro para elementos principales */
+  --accent-color: var(--color-turmeric); /* Amarillo vibrante para acentos */
+  --background-light: var(--color-gray-nurse); /* Fondo suave */
+  --panel-background: #ffffff; /* Blanco puro para los paneles, mantiene la claridad */
+  --text-color-dark: #333; /* Texto oscuro para buena legibilidad */
+  --text-color-light: #555; /* Texto secundario */
+  --border-color-soft: #c2cfbf; /* Borde más integrado con la paleta */
+  --placeholder-color: #888;
+
+  /* Sombras y Radios */
+  --shadow-subtle: rgba(0, 0, 0, 0.08);
+  --shadow-hover: rgba(0, 0, 0, 0.15);
+  --border-radius-large: 16px;
+  --border-radius-medium: 8px;
+}
+
 body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  /* Fondo con degradado sutil usando colores de la paleta */
+  background: linear-gradient(135deg, var(--background-light), #e6ede5);
   min-height: 100vh;
   margin: 0;
   padding: 0;
@@ -26,7 +53,189 @@ main {
   flex: 1;
   display: flex;
   align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  color: var(--text-color-dark);
+  overflow: hidden;
+}
+
+#main-container {
+  display: flex;
+  gap: 30px;
+  align-items: stretch;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* --- Panel de Información --- */
+#info-panel {
+  background: var(--panel-background);
+  padding: 30px 25px;
+  border-radius: var(--border-radius-large);
+  box-shadow: 0 8px 25px var(--shadow-subtle);
+  text-align: center;
+  max-width: 280px;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#info-panel:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px var(--shadow-hover);
+}
+
+#chatbot-img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  margin-bottom: 25px;
+  border-radius: 50%;
+  border: 4px solid var(--primary-brand-color); /* Borde con el color verde oscuro principal */
+  box-shadow: 0 4px 10px var(--shadow-subtle);
+  transition: transform 0.3s ease;
+}
+
+#chatbot-img:hover {
+  transform: scale(1.05);
+}
+
+#info-panel p {
+  font-size: 1.15em;
+  color: var(--text-color-light); /* Texto un poco más suave para el panel */
+  line-height: 1.6;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* --- Contenedor del Chat --- */
+#chat-container {
+  background: var(--panel-background);
+  width: 420px;
+  padding: 25px;
+  border-radius: var(--border-radius-large);
+  box-shadow: 0 8px 25px var(--shadow-subtle);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#chat-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px var(--shadow-hover);
+}
+
+#chat-window {
+  height: 350px;
+  overflow-y: auto;
+  border: 1px solid var(--border-color-soft); /* Borde más suave */
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: var(--border-radius-medium);
+  background-color: #fcfcfc; /* Fondo casi blanco para la ventana */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03); /* Sombra interna más sutil */
+}
+
+/* Estilos de la barra de desplazamiento */
+#chat-window::-webkit-scrollbar {
+  width: 8px;
+}
+
+#chat-window::-webkit-scrollbar-track {
+  background: var(--background-light); /* Track con el color gris-verde claro */
+  border-radius: 10px;
+}
+
+#chat-window::-webkit-scrollbar-thumb {
+  background: var(--primary-brand-color); /* Thumb con el color verde oscuro */
+  border-radius: 10px;
+}
+
+#chat-window::-webkit-scrollbar-thumb:hover {
+  background: #2b7044; /* Un tono un poco más oscuro de Parsley al hover */
+}
+
+
+/* --- Entrada de Usuario y Botón --- */
+.input-area {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+#user-input {
+  flex-grow: 1;
+  padding: 12px 15px;
+  border: 1px solid var(--border-color-soft);
+  border-radius: var(--border-radius-medium);
+  font-size: 1em;
+  color: var(--text-color-dark);
+  background-color: #fefefe; /* Fondo muy claro para el input */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#user-input::placeholder {
+  color: var(--placeholder-color);
+}
+
+#user-input:focus {
+  outline: none;
+  border-color: var(--color-ironstone); /* El color Ironstone para el enfoque, un toque cálido */
+  box-shadow: 0 0 0 3px rgba(126, 74, 59, 0.2);
+}
+
+#send-btn {
+  padding: 12px 25px;
+  background-color: var(--primary-brand-color); /* Botón principal con el verde oscuro */
+  color: white; /* Texto blanco para contraste */
+  border: none;
+  border-radius: var(--border-radius-medium);
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(22, 84, 45, 0.3); /* Sombra del botón en tono Parsley */
+}
+
+#send-btn:hover {
+  background-color: #2b7044; /* Un tono más oscuro de Parsley */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(22, 84, 45, 0.4);
+}
+
+#send-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(22, 84, 45, 0.3);
+}
+
+/* --- Responsividad Básica --- */
+@media (max-width: 768px) {
+  #main-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+  }
+
+  #info-panel, #chat-container {
+    width: 100%;
+    max-width: 420px;
+    margin-bottom: 20px;
+  }
+
+  #info-panel {
+    padding: 25px 20px;
+  }
+
+  #chat-container {
+    padding: 20px;
+    justify-content: center;
+  }
 }
 
 #chat-container {
