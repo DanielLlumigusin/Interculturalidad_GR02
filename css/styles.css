@@ -1,21 +1,21 @@
 :root {
-  /* Paleta de Colores Definida */
-  --color-parsley: #16542d;
-  --color-gray-nurse: #dfe7de;
-  --color-ironstone: #7e4a3b;
-  --color-turmeric: #bfbf43;
+  /* Paleta Masculina Pastel */
+  --color-coffee: #8B6F47;
+  --color-soft-blue: #8bbcda;
+  --color-cream: #f6f3ef;
+  --color-dark: #2e2e2e;
 
-  /* Colores Base Derivados */
-  --primary-brand-color: var(--color-parsley); /* Verde oscuro para elementos principales */
-  --accent-color: var(--color-turmeric); /* Amarillo vibrante para acentos */
-  --background-light: var(--color-gray-nurse); /* Fondo suave */
-  --panel-background: #ffffff; /* Blanco puro para los paneles, mantiene la claridad */
-  --text-color-dark: #333; /* Texto oscuro para buena legibilidad */
-  --text-color-light: #555; /* Texto secundario */
-  --border-color-soft: #c2cfbf; /* Borde más integrado con la paleta */
+  /* Colores Base */
+  --primary-brand-color: var(--color-coffee);
+  --accent-color: var(--color-soft-blue);
+  --background-light: var(--color-cream);
+  --panel-background: #ffffff;
+  --text-color-dark: #333;
+  --text-color-light: #555;
+  --border-color-soft: #c2cfbf;
   --placeholder-color: #888;
 
-  /* Sombras y Radios */
+  /* Sombras y Bordes */
   --shadow-subtle: rgba(0, 0, 0, 0.08);
   --shadow-hover: rgba(0, 0, 0, 0.15);
   --border-radius-large: 16px;
@@ -24,12 +24,10 @@
 
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
-  /* Fondo con degradado sutil usando colores de la paleta */
-  background: linear-gradient(135deg, var(--background-light), #e6ede5);
+  background: linear-gradient(135deg, var(--color-soft-blue), var(--color-cream));
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  background: #f5f5fa;
   display: flex;
   flex-direction: column;
 }
@@ -43,9 +41,9 @@ header {
 .titulo-principal {
   font-family: 'Segoe Script', cursive, 'Arial', sans-serif;
   font-size: 2.8em;
-  color: #4B0082;
+  color: var(--color-coffee);
   letter-spacing: 2px;
-  text-shadow: 2px 2px 8px #d1c4e9;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.1);
   margin-bottom: 0;
 }
 
@@ -61,9 +59,10 @@ main {
 
 #main-container {
   display: flex;
-  gap: 30px;
+  gap: 40px;
   align-items: stretch;
-  padding: 20px;
+  justify-content: center;
+  padding: 40px;
   box-sizing: border-box;
 }
 
@@ -74,12 +73,15 @@ main {
   border-radius: var(--border-radius-large);
   box-shadow: 0 8px 25px var(--shadow-subtle);
   text-align: center;
-  max-width: 280px;
+  max-width: 320px;
+  width: 420px;
+  height: 460px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: auto;
 }
 
 #info-panel:hover {
@@ -88,12 +90,12 @@ main {
 }
 
 #chatbot-img {
-  width: 120px;
-  height: 120px;
+  width: 140px;
+  height: 140px;
   object-fit: cover;
   margin-bottom: 25px;
   border-radius: 50%;
-  border: 4px solid var(--primary-brand-color); /* Borde con el color verde oscuro principal */
+  border: 4px solid var(--primary-brand-color);
   box-shadow: 0 4px 10px var(--shadow-subtle);
   transition: transform 0.3s ease;
 }
@@ -104,79 +106,114 @@ main {
 
 #info-panel p {
   font-size: 1.15em;
-  color: var(--text-color-light); /* Texto un poco más suave para el panel */
+  color: var(--text-color-light);
   line-height: 1.6;
   font-weight: 500;
   margin: 0;
+  overflow-wrap: break-word;
 }
 
 /* --- Contenedor del Chat --- */
 #chat-container {
   background: var(--panel-background);
   width: 420px;
+  height: 460px;
   padding: 25px;
   border-radius: var(--border-radius-large);
   box-shadow: 0 8px 25px var(--shadow-subtle);
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
 }
 
+/* Hover efecto */
 #chat-container:hover {
   transform: translateY(-5px);
   box-shadow: 0 12px 30px var(--shadow-hover);
 }
 
+/* El chat-window ocupa todo el espacio disponible menos lo que usan input y botón */
 #chat-window {
-  height: 350px;
+  flex-grow: 1;
   overflow-y: auto;
-  border: 1px solid var(--border-color-soft); /* Borde más suave */
+  border: 1px solid var(--border-color-soft);
   padding: 15px;
   margin-bottom: 15px;
   border-radius: var(--border-radius-medium);
-  background-color: #fcfcfc; /* Fondo casi blanco para la ventana */
+  background-color: #fcfcfc;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03); /* Sombra interna más sutil */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03);
 }
 
-/* Estilos de la barra de desplazamiento */
+/* Burbujas de mensajes */
+.message {
+  padding: 10px 14px;
+  border-radius: 12px;
+  max-width: 80%;
+  font-size: 0.95em;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  word-wrap: break-word;
+}
+
+.bot-message {
+  background-color: var(--accent-color);
+  color: #2e2e2e;
+  align-self: flex-start;
+  border-bottom-left-radius: 0;
+}
+
+.user-message {
+  background-color: var(--color-coffee);
+  color: white;
+  align-self: flex-end;
+  border-bottom-right-radius: 0;
+}
+
+/* Scrollbar */
 #chat-window::-webkit-scrollbar {
   width: 8px;
 }
 
 #chat-window::-webkit-scrollbar-track {
-  background: var(--background-light); /* Track con el color gris-verde claro */
+  background: var(--background-light);
   border-radius: 10px;
 }
 
 #chat-window::-webkit-scrollbar-thumb {
-  background: var(--primary-brand-color); /* Thumb con el color verde oscuro */
+  background: var(--primary-brand-color);
   border-radius: 10px;
 }
 
 #chat-window::-webkit-scrollbar-thumb:hover {
-  background: #2b7044; /* Un tono un poco más oscuro de Parsley al hover */
+  background: #6e4e2d;
 }
 
-
-/* --- Entrada de Usuario y Botón --- */
-.input-area {
-  display: flex;
-  gap: 10px;
-  align-items: center;
+/* --- Ajuste para Input y Botón (sin cambiar HTML) --- */
+#user-input, #send-btn {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  height: 42px; /* mismo alto para ambos */
+  font-size: 1em;
+  border-radius: var(--border-radius-medium);
+  border: 1px solid var(--border-color-soft);
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 10px; /* separación vertical */
 }
 
 #user-input {
-  flex-grow: 1;
-  padding: 12px 15px;
-  border: 1px solid var(--border-color-soft);
   border-radius: var(--border-radius-medium);
-  font-size: 1em;
+  border: 1px solid var(--border-color-soft);
+  background-color: #fefefe;
   color: var(--text-color-dark);
-  background-color: #fefefe; /* Fondo muy claro para el input */
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+  padding-left: 15px;
+  padding-right: 15px;
+  outline: none;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -185,36 +222,35 @@ main {
 }
 
 #user-input:focus {
-  outline: none;
-  border-color: var(--color-ironstone); /* El color Ironstone para el enfoque, un toque cálido */
-  box-shadow: 0 0 0 3px rgba(126, 74, 59, 0.2);
+  border-color: var(--color-coffee);
+  box-shadow: 0 0 0 3px rgba(139, 111, 71, 0.2);
 }
 
 #send-btn {
-  padding: 12px 25px;
-  background-color: var(--primary-brand-color); /* Botón principal con el verde oscuro */
-  color: white; /* Texto blanco para contraste */
+  background-color: var(--primary-brand-color);
+  color: white;
   border: none;
-  border-radius: var(--border-radius-medium);
   cursor: pointer;
-  font-size: 1em;
   font-weight: bold;
+  box-shadow: 0 4px 10px rgba(139, 111, 71, 0.3);
   transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 10px rgba(22, 84, 45, 0.3); /* Sombra del botón en tono Parsley */
+  padding-left: 15px;
+  padding-right: 15px;
+  /* border-radius y altura ya aplicados arriba */
 }
 
 #send-btn:hover {
-  background-color: #2b7044; /* Un tono más oscuro de Parsley */
+  background-color: #6e4e2d;
   transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(22, 84, 45, 0.4);
+  box-shadow: 0 6px 15px rgba(139, 111, 71, 0.4);
 }
 
 #send-btn:active {
   transform: translateY(0);
-  box-shadow: 0 2px 5px rgba(22, 84, 45, 0.3);
+  box-shadow: 0 2px 5px rgba(139, 111, 71, 0.3);
 }
 
-/* --- Responsividad Básica --- */
+/* --- Responsividad --- */
 @media (max-width: 768px) {
   #main-container {
     flex-direction: column;
@@ -225,6 +261,7 @@ main {
   #info-panel, #chat-container {
     width: 100%;
     max-width: 420px;
+    height: auto;
     margin-bottom: 20px;
   }
 
@@ -238,53 +275,6 @@ main {
   }
 }
 
-#chat-container {
-  background: #fff;
-  border-radius: 18px;
-  box-shadow: 0 4px 24px #b39ddb55;
-  padding: 30px 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 340px;
-  min-height: 340px;
-}
-
-#chat-window {
-  width: 300px;
-  height: 180px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  margin-bottom: 16px;
-  padding: 10px;
-  background: #fafafa;
-  overflow-y: auto;
-}
-
-#user-input {
-  width: 220px;
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid #b39ddb;
-  margin-right: 8px;
-  font-size: 1em;
-}
-
-#send-btn {
-  padding: 8px 18px;
-  border-radius: 6px;
-  border: none;
-  background: #7e57c2;
-  color: #fff;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 1em;
-  transition: background 0.2s;
-}
-#send-btn:hover {
-  background: #512da8;
-}
-
 footer {
   width: 100%;
   text-align: center;
@@ -294,7 +284,7 @@ footer {
 .creditos {
   font-family: 'Segoe Script', cursive, 'Arial', sans-serif;
   font-size: 1.2em;
-  color: #6a1b9a;
+  color: var(--color-coffee);
   letter-spacing: 1px;
   text-shadow: 1px 1px 4px #ede7f6;
   margin: 0;
