@@ -228,7 +228,7 @@ main {
 }
 
 #send-btn {
-  background-color: var(--primary-brand-color);
+  background-color: #FF0080;
   color: white;
   border: none;
   cursor: pointer;
